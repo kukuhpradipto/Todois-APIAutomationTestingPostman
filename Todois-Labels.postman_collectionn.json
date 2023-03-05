@@ -1350,13 +1350,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseURL}}/labels/{{id}}",
+							"raw": "{{baseURL}}/labels/{{id2}}",
 							"host": [
 								"{{baseURL}}"
 							],
 							"path": [
 								"labels",
-								"{{id}}"
+								"{{id2}}"
 							]
 						}
 					},
@@ -2542,6 +2542,44 @@
 					"response": []
 				}
 			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "https://api.todoist.com/rest/v2"
+		},
+		{
+			"key": "id",
+			"value": ""
+		},
+		{
+			"key": "id2",
+			"value": ""
+		},
+		{
+			"key": "TOKEN",
+			"value": "926819adf25c7ad819a21a0c84ea0f1221e57c88"
 		}
 	]
 }
