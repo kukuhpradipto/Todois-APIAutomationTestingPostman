@@ -1,0 +1,2547 @@
+{
+	"info": {
+		"_postman_id": "d5e0bdd1-77c0-4805-99c4-cc08298902cc",
+		"name": "Todois-Labels",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create a new personal label",
+			"item": [
+				{
+					"name": "( + ) Create label with valid JSON Request",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var responseData = pm.response.json()",
+									"console.log(responseData)",
+									"",
+									"var jsonSchema = {",
+									"  \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+									"  \"type\": \"object\",",
+									"  \"properties\": {",
+									"    \"id\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"name\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"order\": {",
+									"      \"type\": \"integer\"",
+									"    },",
+									"    \"color\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"is_favorite\": {",
+									"      \"type\": \"boolean\"",
+									"    }",
+									"  },",
+									"  \"required\": [",
+									"    \"id\",",
+									"    \"name\",",
+									"    \"order\",",
+									"    \"color\",",
+									"    \"is_favorite\"",
+									"  ]",
+									"}",
+									"",
+									"pm.test(\" validate jsonSchema create label\", function(){",
+									"    pm.expect(tv4.validate(responseData,jsonSchema)).to.be.true;",
+									"})",
+									"",
+									"pm.test(\"validate JSON value\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.id).to.eql(jsonData.id)",
+									"    pm.expect(jsonData.name).to.eql(jsonData.name)",
+									"    pm.expect(jsonData.order).to.eql(jsonData.order)",
+									"    pm.expect(jsonData.color).to.eql(jsonData.color)",
+									"    pm.expect(jsonData.is_favorite).to.eql(jsonData.is_favorite);",
+									"",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{$randomFirstName}}\",\n    \"order\": {{$randomInt}},\n    \"color\": \"red\",\n    \"is_favorite\": {{$randomBoolean}}\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/labels",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"labels"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "( - ) Create label with invalid JSON Request",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": 12233,\n    \"order\": \"buahbuahan\",\n    \"color\": \"######\",\n    \"is_favorite\": \"yellow\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/labels/",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"labels",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "( - ) Create label with json JSON Request name is empty",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"\",\n    \"order\": {{$randomInt}},\n    \"color\": \"yellow\",\n    \"is_favorite\": {{$randomBoolean}}\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/labels/",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"labels",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "( - ) Create label with json JSON Request order is empty",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{$randomFirstName}}\",\n    \"order\": \"\",\n    \"color\": \"red\",\n    \"is_favorite\": {{$randomBoolean}}\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/labels/",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"labels",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "( - ) Create label with json JSON Request color is empty",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{$randomFirstName}}\",\n    \"order\": {{$randomInt}},\n    \"color\": \"\",\n    \"is_favorite\": {{$randomBoolean}}\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/labels/",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"labels",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "( - ) Create label with json JSON Request is_favorite is empty",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{$randomFirstName}}\",\n    \"order\": {{$randomInt}},\n    \"color\": \"red\",\n    \"is_favorite\": \"\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/labels/",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"labels",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "( - ) Create label with json JSON Request name and color is empty",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"\",\n    \"order\": {{$randomInt}},\n    \"color\": \"\",\n    \"is_favorite\": {{$randomBoolean}}\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/labels/",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"labels",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "( - ) Create label with json JSON Request order and color is empty",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{$randomFirstName}}\",\n    \"order\": \"\",\n    \"color\": \"\",\n    \"is_favorite\": {{$randomBoolean}}\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/labels/",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"labels",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "( - ) Create label with json JSON Request order and is_favorite is empty",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{$randomFirstName}}\",\n    \"order\": \"\",\n    \"color\": \"red\",\n    \"is_favorite\": \"\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}//labels/",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"",
+								"labels",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "( - ) Create label with json JSON Request name and order is empty",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"\",\n    \"order\": \"\",\n    \"color\": \"red\",\n    \"is_favorite\": {{$randomBoolean}}\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/labels/",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"labels",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "( - ) Create label with json JSON Request name and color is empty",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"\",\n    \"order\": {{$randomInt}},\n    \"color\": \"\",\n    \"is_favorite\": {{$randomBoolean}}\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/labels/",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"labels",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Get all personal label",
+			"item": [
+				{
+					"name": "GET  All personal labels",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"id2\", pm.response.json()[0]['id']);",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var responseData = pm.response.json()",
+									"console.log(responseData)",
+									"",
+									"var jsonSchema = {",
+									"  \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+									"  \"type\": \"array\",",
+									"  \"items\": [",
+									"    {",
+									"      \"type\": \"object\",",
+									"      \"properties\": {",
+									"        \"id\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"name\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"order\": {",
+									"          \"type\": \"integer\"",
+									"        },",
+									"        \"color\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"is_favorite\": {",
+									"          \"type\": \"boolean\"",
+									"        }",
+									"      },",
+									"      \"required\": [",
+									"        \"id\",",
+									"        \"name\",",
+									"        \"order\",",
+									"        \"color\",",
+									"        \"is_favorite\"",
+									"      ]",
+									"    },",
+									"    {",
+									"      \"type\": \"object\",",
+									"      \"properties\": {",
+									"        \"id\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"name\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"order\": {",
+									"          \"type\": \"integer\"",
+									"        },",
+									"        \"color\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"is_favorite\": {",
+									"          \"type\": \"boolean\"",
+									"        }",
+									"      },",
+									"      \"required\": [",
+									"        \"id\",",
+									"        \"name\",",
+									"        \"order\",",
+									"        \"color\",",
+									"        \"is_favorite\"",
+									"      ]",
+									"    },",
+									"    {",
+									"      \"type\": \"object\",",
+									"      \"properties\": {",
+									"        \"id\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"name\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"order\": {",
+									"          \"type\": \"integer\"",
+									"        },",
+									"        \"color\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"is_favorite\": {",
+									"          \"type\": \"boolean\"",
+									"        }",
+									"      },",
+									"      \"required\": [",
+									"        \"id\",",
+									"        \"name\",",
+									"        \"order\",",
+									"        \"color\",",
+									"        \"is_favorite\"",
+									"      ]",
+									"    },",
+									"    {",
+									"      \"type\": \"object\",",
+									"      \"properties\": {",
+									"        \"id\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"name\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"order\": {",
+									"          \"type\": \"integer\"",
+									"        },",
+									"        \"color\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"is_favorite\": {",
+									"          \"type\": \"boolean\"",
+									"        }",
+									"      },",
+									"      \"required\": [",
+									"        \"id\",",
+									"        \"name\",",
+									"        \"order\",",
+									"        \"color\",",
+									"        \"is_favorite\"",
+									"      ]",
+									"    },",
+									"    {",
+									"      \"type\": \"object\",",
+									"      \"properties\": {",
+									"        \"id\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"name\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"order\": {",
+									"          \"type\": \"integer\"",
+									"        },",
+									"        \"color\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"is_favorite\": {",
+									"          \"type\": \"boolean\"",
+									"        }",
+									"      },",
+									"      \"required\": [",
+									"        \"id\",",
+									"        \"name\",",
+									"        \"order\",",
+									"        \"color\",",
+									"        \"is_favorite\"",
+									"      ]",
+									"    },",
+									"    {",
+									"      \"type\": \"object\",",
+									"      \"properties\": {",
+									"        \"id\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"name\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"order\": {",
+									"          \"type\": \"integer\"",
+									"        },",
+									"        \"color\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"is_favorite\": {",
+									"          \"type\": \"boolean\"",
+									"        }",
+									"      },",
+									"      \"required\": [",
+									"        \"id\",",
+									"        \"name\",",
+									"        \"order\",",
+									"        \"color\",",
+									"        \"is_favorite\"",
+									"      ]",
+									"    },",
+									"    {",
+									"      \"type\": \"object\",",
+									"      \"properties\": {",
+									"        \"id\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"name\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"order\": {",
+									"          \"type\": \"integer\"",
+									"        },",
+									"        \"color\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"is_favorite\": {",
+									"          \"type\": \"boolean\"",
+									"        }",
+									"      },",
+									"      \"required\": [",
+									"        \"id\",",
+									"        \"name\",",
+									"        \"order\",",
+									"        \"color\",",
+									"        \"is_favorite\"",
+									"      ]",
+									"    },",
+									"    {",
+									"      \"type\": \"object\",",
+									"      \"properties\": {",
+									"        \"id\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"name\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"order\": {",
+									"          \"type\": \"integer\"",
+									"        },",
+									"        \"color\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"is_favorite\": {",
+									"          \"type\": \"boolean\"",
+									"        }",
+									"      },",
+									"      \"required\": [",
+									"        \"id\",",
+									"        \"name\",",
+									"        \"order\",",
+									"        \"color\",",
+									"        \"is_favorite\"",
+									"      ]",
+									"    },",
+									"    {",
+									"      \"type\": \"object\",",
+									"      \"properties\": {",
+									"        \"id\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"name\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"order\": {",
+									"          \"type\": \"integer\"",
+									"        },",
+									"        \"color\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"is_favorite\": {",
+									"          \"type\": \"boolean\"",
+									"        }",
+									"      },",
+									"      \"required\": [",
+									"        \"id\",",
+									"        \"name\",",
+									"        \"order\",",
+									"        \"color\",",
+									"        \"is_favorite\"",
+									"      ]",
+									"    },",
+									"    {",
+									"      \"type\": \"object\",",
+									"      \"properties\": {",
+									"        \"id\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"name\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"order\": {",
+									"          \"type\": \"integer\"",
+									"        },",
+									"        \"color\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"is_favorite\": {",
+									"          \"type\": \"boolean\"",
+									"        }",
+									"      },",
+									"      \"required\": [",
+									"        \"id\",",
+									"        \"name\",",
+									"        \"order\",",
+									"        \"color\",",
+									"        \"is_favorite\"",
+									"      ]",
+									"    },",
+									"    {",
+									"      \"type\": \"object\",",
+									"      \"properties\": {",
+									"        \"id\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"name\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"order\": {",
+									"          \"type\": \"integer\"",
+									"        },",
+									"        \"color\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"is_favorite\": {",
+									"          \"type\": \"boolean\"",
+									"        }",
+									"      },",
+									"      \"required\": [",
+									"        \"id\",",
+									"        \"name\",",
+									"        \"order\",",
+									"        \"color\",",
+									"        \"is_favorite\"",
+									"      ]",
+									"    },",
+									"    {",
+									"      \"type\": \"object\",",
+									"      \"properties\": {",
+									"        \"id\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"name\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"order\": {",
+									"          \"type\": \"integer\"",
+									"        },",
+									"        \"color\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"is_favorite\": {",
+									"          \"type\": \"boolean\"",
+									"        }",
+									"      },",
+									"      \"required\": [",
+									"        \"id\",",
+									"        \"name\",",
+									"        \"order\",",
+									"        \"color\",",
+									"        \"is_favorite\"",
+									"      ]",
+									"    },",
+									"    {",
+									"      \"type\": \"object\",",
+									"      \"properties\": {",
+									"        \"id\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"name\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"order\": {",
+									"          \"type\": \"integer\"",
+									"        },",
+									"        \"color\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"is_favorite\": {",
+									"          \"type\": \"boolean\"",
+									"        }",
+									"      },",
+									"      \"required\": [",
+									"        \"id\",",
+									"        \"name\",",
+									"        \"order\",",
+									"        \"color\",",
+									"        \"is_favorite\"",
+									"      ]",
+									"    },",
+									"    {",
+									"      \"type\": \"object\",",
+									"      \"properties\": {",
+									"        \"id\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"name\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"order\": {",
+									"          \"type\": \"integer\"",
+									"        },",
+									"        \"color\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"is_favorite\": {",
+									"          \"type\": \"boolean\"",
+									"        }",
+									"      },",
+									"      \"required\": [",
+									"        \"id\",",
+									"        \"name\",",
+									"        \"order\",",
+									"        \"color\",",
+									"        \"is_favorite\"",
+									"      ]",
+									"    },",
+									"    {",
+									"      \"type\": \"object\",",
+									"      \"properties\": {",
+									"        \"id\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"name\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"order\": {",
+									"          \"type\": \"integer\"",
+									"        },",
+									"        \"color\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"is_favorite\": {",
+									"          \"type\": \"boolean\"",
+									"        }",
+									"      },",
+									"      \"required\": [",
+									"        \"id\",",
+									"        \"name\",",
+									"        \"order\",",
+									"        \"color\",",
+									"        \"is_favorite\"",
+									"      ]",
+									"    },",
+									"    {",
+									"      \"type\": \"object\",",
+									"      \"properties\": {",
+									"        \"id\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"name\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"order\": {",
+									"          \"type\": \"integer\"",
+									"        },",
+									"        \"color\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"is_favorite\": {",
+									"          \"type\": \"boolean\"",
+									"        }",
+									"      },",
+									"      \"required\": [",
+									"        \"id\",",
+									"        \"name\",",
+									"        \"order\",",
+									"        \"color\",",
+									"        \"is_favorite\"",
+									"      ]",
+									"    }",
+									"  ]",
+									"}",
+									"",
+									"pm.test(\" validate jsonSchema create label\", function(){",
+									"    pm.expect(tv4.validate(responseData,jsonSchema)).to.be.true;",
+									"})",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.todoist.com/rest/v2/labels/",
+							"protocol": "https",
+							"host": [
+								"api",
+								"todoist",
+								"com"
+							],
+							"path": [
+								"rest",
+								"v2",
+								"labels",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Get a personal label",
+			"item": [
+				{
+					"name": "( + ) Get a personal label with valid id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var responseData = pm.response.json()",
+									"console.log(responseData)",
+									"",
+									"var jsonSchema = {",
+									"  \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+									"  \"type\": \"object\",",
+									"  \"properties\": {",
+									"    \"id\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"name\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"order\": {",
+									"      \"type\": \"integer\"",
+									"    },",
+									"    \"color\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"is_favorite\": {",
+									"      \"type\": \"boolean\"",
+									"    }",
+									"  },",
+									"  \"required\": [",
+									"    \"id\",",
+									"    \"name\",",
+									"    \"order\",",
+									"    \"color\",",
+									"    \"is_favorite\"",
+									"  ]",
+									"}",
+									"",
+									"pm.test(\" validate jsonSchema create label\", function(){",
+									"    pm.expect(tv4.validate(responseData,jsonSchema)).to.be.true;",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/labels/{{id}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"labels",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "( - ) Get a personal label with unregister id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/labels/2165175728876584687",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"labels",
+								"2165175728876584687"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "( - ) Get a personal label with invalid id is alphabet",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/labels/edewdwdderr",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"labels",
+								"edewdwdderr"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "( - ) Get a personal label with invalid id is special character",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/labels/#####",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"labels",
+								""
+							],
+							"hash": "####"
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "( - ) Get a personal label without id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/labels/",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"labels",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Update a personal label",
+			"item": [
+				{
+					"name": "( + ) Update a personal label",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var responseData = pm.response.json()",
+									"console.log(responseData)",
+									"",
+									"var jsonSchema = {",
+									"  \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+									"  \"type\": \"object\",",
+									"  \"properties\": {",
+									"    \"id\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"name\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"order\": {",
+									"      \"type\": \"integer\"",
+									"    },",
+									"    \"color\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"is_favorite\": {",
+									"      \"type\": \"boolean\"",
+									"    }",
+									"  },",
+									"  \"required\": [",
+									"    \"id\",",
+									"    \"name\",",
+									"    \"order\",",
+									"    \"color\",",
+									"    \"is_favorite\"",
+									"  ]",
+									"}",
+									"",
+									"pm.test(\" validate jsonSchema update label\", function(){",
+									"    pm.expect(tv4.validate(responseData,jsonSchema)).to.be.true;",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{$randomFirstName}}\",\n    \"order\": {{$randomInt}},\n    \"color\": \"red\",\n    \"is_favorite\": {{$randomBoolean}}\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/labels/{{id2}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"labels",
+								"{{id2}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "( - ) Create label with invalid JSON Request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": 1234,\n    \"color\": \"eat\",\n    \"order\": \"makan\",\n    \"is_favorite\": 123\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/labels/{{id2}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"labels",
+								"{{id2}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "( - ) Create label with json JSON Request name is empty",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var responseData = pm.response.json()",
+									"console.log(responseData)",
+									"",
+									"var jsonSchema = {",
+									"  \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+									"  \"type\": \"object\",",
+									"  \"properties\": {",
+									"    \"id\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"name\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"order\": {",
+									"      \"type\": \"integer\"",
+									"    },",
+									"    \"color\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"is_favorite\": {",
+									"      \"type\": \"boolean\"",
+									"    }",
+									"  },",
+									"  \"required\": [",
+									"    \"id\",",
+									"    \"name\",",
+									"    \"order\",",
+									"    \"color\",",
+									"    \"is_favorite\"",
+									"  ]",
+									"}",
+									"pm.test(\" validate jsonSchema update label\", function(){",
+									"    pm.expect(tv4.validate(responseData,jsonSchema)).to.be.true;",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"\",\n    \"color\": \"red\",\n    \"order\": 1,\n    \"is_favorite\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/labels/{{id2}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"labels",
+								"{{id2}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "( - ) Create label with json JSON Request order is empty",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"var responseData = pm.response.json()",
+									"console.log(responseData)",
+									"",
+									"var jsonSchema = {",
+									"  \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+									"  \"type\": \"object\",",
+									"  \"properties\": {",
+									"    \"id\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"name\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"order\": {",
+									"      \"type\": \"integer\"",
+									"    },",
+									"    \"color\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"is_favorite\": {",
+									"      \"type\": \"boolean\"",
+									"    }",
+									"  },",
+									"  \"required\": [",
+									"    \"id\",",
+									"    \"name\",",
+									"    \"order\",",
+									"    \"color\",",
+									"    \"is_favorite\"",
+									"  ]",
+									"}",
+									"pm.test(\" validate jsonSchema update label\", function(){",
+									"    pm.expect(tv4.validate(responseData,jsonSchema)).to.be.true;",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{$randomFirstName}}\",\n    \"order\": \"\",\n    \"color\": \"red\",\n    \"is_favorite\": {{$randomBoolean}}\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/labels/{{id2}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"labels",
+								"{{id2}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "( - ) Create label with json JSON Request color is empty",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{$randomFirstName}}\",\n    \"order\": {{$randomInt}},\n    \"color\": \"\",\n    \"is_favorite\": {{$randomBoolean}}\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/labels/{{id2}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"labels",
+								"{{id2}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "( - ) Create label with json JSON Request is_favorite is empty",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var responseData = pm.response.json()",
+									"console.log(responseData)",
+									"",
+									"var jsonSchema = {",
+									"  \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+									"  \"type\": \"object\",",
+									"  \"properties\": {",
+									"    \"id\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"name\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"order\": {",
+									"      \"type\": \"integer\"",
+									"    },",
+									"    \"color\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"is_favorite\": {",
+									"      \"type\": \"boolean\"",
+									"    }",
+									"  },",
+									"  \"required\": [",
+									"    \"id\",",
+									"    \"name\",",
+									"    \"order\",",
+									"    \"color\",",
+									"    \"is_favorite\"",
+									"  ]",
+									"}",
+									"pm.test(\" validate jsonSchema update label\", function(){",
+									"    pm.expect(tv4.validate(responseData,jsonSchema)).to.be.true;",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{$randomFirstName}}\",\n    \"order\": {{$randomInt}},\n    \"color\": \"red\",\n    \"is_favorite\":\"\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/labels/{{id2}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"labels",
+								"{{id2}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "( - ) Create label with json JSON Request name and order is empty",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var responseData = pm.response.json()",
+									"console.log(responseData)",
+									"",
+									"var jsonSchema = {",
+									"  \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+									"  \"type\": \"object\",",
+									"  \"properties\": {",
+									"    \"id\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"name\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"order\": {",
+									"      \"type\": \"integer\"",
+									"    },",
+									"    \"color\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"is_favorite\": {",
+									"      \"type\": \"boolean\"",
+									"    }",
+									"  },",
+									"  \"required\": [",
+									"    \"id\",",
+									"    \"name\",",
+									"    \"order\",",
+									"    \"color\",",
+									"    \"is_favorite\"",
+									"  ]",
+									"}",
+									"pm.test(\" validate jsonSchema update label\", function(){",
+									"    pm.expect(tv4.validate(responseData,jsonSchema)).to.be.true;",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"\",\n    \"order\": \"\",\n    \"color\": \"red\",\n    \"is_favorite\": {{$randomBoolean}}\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/labels/{{id2}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"labels",
+								"{{id2}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "( - ) Create label with json JSON Request name and color is empty",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"\",\n    \"order\": {{$randomInt}},\n    \"color\": \"\",\n    \"is_favorite\": {{$randomBoolean}}\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/labels/{{id2}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"labels",
+								"{{id2}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "( - ) Create label with json JSON Request name and is_favorite is empty",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var responseData = pm.response.json()",
+									"console.log(responseData)",
+									"",
+									"var jsonSchema = {",
+									"  \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+									"  \"type\": \"object\",",
+									"  \"properties\": {",
+									"    \"id\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"name\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"order\": {",
+									"      \"type\": \"integer\"",
+									"    },",
+									"    \"color\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"is_favorite\": {",
+									"      \"type\": \"boolean\"",
+									"    }",
+									"  },",
+									"  \"required\": [",
+									"    \"id\",",
+									"    \"name\",",
+									"    \"order\",",
+									"    \"color\",",
+									"    \"is_favorite\"",
+									"  ]",
+									"}",
+									"",
+									"pm.test(\" validate jsonSchema update label\", function(){",
+									"    pm.expect(tv4.validate(responseData,jsonSchema)).to.be.true;",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"\",\n    \"order\": {{$randomInt}},\n    \"color\": \"red\",\n    \"is_favorite\": \"\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/labels/{{id2}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"labels",
+								"{{id2}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "( - ) Create label with json JSON Request order and color is empty",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Drinks\",\n    \"color\": \"\",\n    \"order\": \"\",\n    \"is_favorite\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/labels/2165159829",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"labels",
+								"2165159829"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "( - ) Create label with json JSON Request order and is_favorite is empty",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var responseData = pm.response.json()",
+									"console.log(responseData)",
+									"",
+									"var jsonSchema = {",
+									"  \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+									"  \"type\": \"object\",",
+									"  \"properties\": {",
+									"    \"id\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"name\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"order\": {",
+									"      \"type\": \"integer\"",
+									"    },",
+									"    \"color\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"is_favorite\": {",
+									"      \"type\": \"boolean\"",
+									"    }",
+									"  },",
+									"  \"required\": [",
+									"    \"id\",",
+									"    \"name\",",
+									"    \"order\",",
+									"    \"color\",",
+									"    \"is_favorite\"",
+									"  ]",
+									"}",
+									"",
+									"pm.test(\" validate jsonSchema update label\", function(){",
+									"    pm.expect(tv4.validate(responseData,jsonSchema)).to.be.true;",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Drinks\",\n    \"color\": \"red\",\n    \"order\": \"\",\n    \"is_favorite\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/labels/{{id2}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"labels",
+								"{{id2}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Delete a personal label",
+			"item": [
+				{
+					"name": "( + ) Delete a personal label with valid id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/labels/{{id2}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"labels",
+								"{{id2}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "( - ) Delete a personal label with unregister id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/labels/2165160062",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"labels",
+								"2165160062"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "( - ) Delete a personal label with invalid id is alphabet",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/labels/ijhdifhfj",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"labels",
+								"ijhdifhfj"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "( - ) Delete a personal label with invalid id is special character",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/labels/%%^^",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"labels",
+								"%%^^"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "( - ) Delete a personal label without id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 405\", function () {",
+									"    pm.response.to.have.status(405);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/labels/",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"labels",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
