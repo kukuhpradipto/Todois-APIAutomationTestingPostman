@@ -4,7 +4,7 @@
 	"values": [
 		{
 			"key": "baseURL",
-			"value": "",
+			"value": "https://api.todoist.com/rest/v2",
 			"enabled": true
 		},
 		{
@@ -19,11 +19,11 @@
 		},
 		{
 			"key": "TOKEN",
-			"value": "",
+			"value": "926819adf25c7ad819a21a0c84ea0f1221e57c88",
 			"enabled": true
 		}
 	],
 	"_postman_variable_scope": "environment",
-	"_postman_exported_at": "2023-03-05T02:05:19.674Z",
+	"_postman_exported_at": "2023-03-05T02:27:15.907Z",
 	"_postman_exported_using": "Postman/8.12.5"
 }
