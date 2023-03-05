@@ -92,7 +92,7 @@ Response **Error**:
 
 All the errors from the server should return as valid JSON data. They will have an HTTP status code of 400. Sample:
 
-```json
+```text
 Color format is not valid
 ```
 ---
@@ -119,7 +119,7 @@ Response **Error**:
 
 All the errors from the server should return as valid JSON data. They will have an HTTP status code of 404. Sample:
 
-```json
+```text
 Label not found
 ```
 ---
@@ -145,7 +145,7 @@ Response **Error**:
 
 All the errors from the server should return as valid JSON data. They will have an HTTP status code of 400. Sample:
 
-```json
+```text
 Color format is not valid
 ```
 ---
@@ -160,7 +160,7 @@ Response **Error**:
 All the errors from the server should return as valid JSON data. They will have an HTTP status code of 404. Sample:
 
 
-```json
+```text
 label_id is invalid
 ```
 ## Report by Newman Run Dashboard
