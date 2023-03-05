@@ -9,18 +9,13 @@ To access the test case documentation you can access the link below.
 https://bit.ly/DocumentationTodoisLabelsTesting
 ``` 
 
-## Set up
+## Download Postman
 
-Once you have downloaded or cloned the repo you need to install the dependencies for the API. We do this using `npm`.
 
-```cli
-npm install
-```
-
-This command will read the package.json file and install all the required dependencies, such as, `express`, `bcrypt`, and `jsonwebtoken`.
+The Postman CLI is the command-line companion that is developed, supported, and signed by Postman. It enables you to run collections, lint API schemas, run security and governance checks, and log in and out. All test results will be automatically pushed to the app.
+You can access in : www.postman.com/downloads/
 
 ---
-
 ## Structure Folder
 
 ```
